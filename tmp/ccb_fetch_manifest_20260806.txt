@@ -1,5 +1,0 @@
-Temporary URL manifest for Guangdong CCB branch extraction. Delete after use.
-
-https://r.jina.ai/http://ditu.amap.com/service/poiInfo?query_type=TQUERY&pagesize=20&pagenum=1&qii=true&cluster_state=5&need_utd=true&utd_sceneid=1000&div=PC1000&addr_poi_merge=true&is_classify=true&zoom=17&city=440300&geoobj=114.056908%7C22.531457%7C114.062058%7C22.539831&keywords=%E6%80%A1%E6%99%AF%E4%B8%AD%E5%BF%83%E5%9F%8E
-
-https://r.jina.ai/http://bank.cngold.org/yhwd/bank_9_20_329_0_2.html

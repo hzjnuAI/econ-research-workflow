@@ -1,12 +1,6 @@
 name: Temporary Guangdong CCB Extract
 
 on:
-  push:
-    branches:
-      - tmp/ccb-guangdong-extract-20260806
-    paths:
-      - 'tmp/ccb_guangdong_extract.py'
-      - '.github/workflows/tmp-ccb-guangdong-extract.yml'
   pull_request:
     branches:
       - main
@@ -40,13 +34,14 @@ jobs:
       - name: Extract all Guangdong CCB business outlets
         run: python tmp/ccb_guangdong_extract.py
 
-      - name: Upload raw data and validation summary
-        if: always()
+      - name: Upload complete raw data
         uses: actions/upload-artifact@v4
         with:
-          name: ccb-guangdong-raw-20260806
-          path: ccb_output/
+          name: ccb-guangdong-complete-20260806
+          path: |
+            ccb_output/ccb_guangdong_branches_raw.csv
+            ccb_output/summary.json
           if-no-files-found: error
           retention-days: 1
 
-# synchronize after PR marked ready
+# trigger PR run after base workflow enabled

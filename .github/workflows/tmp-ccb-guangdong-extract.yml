@@ -49,4 +49,4 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
-# synchronization trigger after enabling workflow on main
+# synchronize after PR marked ready

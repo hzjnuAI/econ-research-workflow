@@ -1,0 +1,16 @@
+{
+  "source_file": "ccb_output/ccb_guangdong_branches_raw.csv",
+  "encoding": "gzip+base64",
+  "chunk_size": 6000,
+  "parts": [
+    "part_001.txt",
+    "part_002.txt",
+    "part_003.txt",
+    "part_004.txt",
+    "part_005.txt",
+    "part_006.txt"
+  ],
+  "encoded_length": 33308,
+  "raw_size": 191842,
+  "sha256": "6d08db120383bde0a7d592c1db98f2684952b8227707a2db99eee090f1b2c095"
+}

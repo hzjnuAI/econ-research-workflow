@@ -1,0 +1,44 @@
+name: Temporary Guangdong CCB Extract
+
+on:
+  push:
+    branches:
+      - tmp/ccb-guangdong-extract-20260806
+    paths:
+      - 'tmp/ccb_guangdong_extract.py'
+      - '.github/workflows/tmp-ccb-guangdong-extract.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONUNBUFFERED: '1'
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: python -m pip install --disable-pip-version-check requests beautifulsoup4
+
+      - name: Extract all Guangdong CCB business outlets
+        run: python tmp/ccb_guangdong_extract.py
+
+      - name: Upload raw data and validation summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ccb-guangdong-raw-20260806
+          path: ccb_output/
+          if-no-files-found: error
+          retention-days: 1

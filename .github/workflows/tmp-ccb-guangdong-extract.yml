@@ -7,6 +7,12 @@ on:
     paths:
       - 'tmp/ccb_guangdong_extract.py'
       - '.github/workflows/tmp-ccb-guangdong-extract.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'tmp/ccb_guangdong_extract.py'
+      - '.github/workflows/tmp-ccb-guangdong-extract.yml'
   workflow_dispatch:
 
 permissions:

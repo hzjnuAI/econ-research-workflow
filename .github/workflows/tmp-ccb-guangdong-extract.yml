@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'tmp/ccb_guangdong_extract.py'
+      - 'tmp/ccb_artifact_trigger.txt'
       - '.github/workflows/tmp-ccb-guangdong-extract.yml'
   workflow_dispatch:
 

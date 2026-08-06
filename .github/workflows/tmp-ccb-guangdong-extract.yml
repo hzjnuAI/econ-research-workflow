@@ -48,3 +48,5 @@ jobs:
           path: ccb_output/
           if-no-files-found: error
           retention-days: 1
+
+# synchronization trigger after enabling workflow on main

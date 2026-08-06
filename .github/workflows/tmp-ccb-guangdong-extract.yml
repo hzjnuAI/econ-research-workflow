@@ -43,3 +43,5 @@ jobs:
             ccb_output/summary.json
           if-no-files-found: error
           retention-days: 1
+
+# isolated artifact-transfer trigger

@@ -36,10 +36,43 @@ jobs:
       - name: Extract all Guangdong CCB business outlets
         run: python tmp/ccb_guangdong_extract.py
 
+      - name: Package extraction output
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64, gzip, hashlib, json
+
+          src = Path('ccb_output/ccb_guangdong_branches_raw.csv')
+          raw = src.read_bytes()
+          encoded = base64.b64encode(gzip.compress(raw, compresslevel=9)).decode('ascii')
+          chunks_dir = Path('ccb_output/chunks')
+          chunks_dir.mkdir(parents=True, exist_ok=True)
+          for p in chunks_dir.glob('part_*.txt'):
+              p.unlink()
+          size = 6000
+          parts = []
+          for i in range(0, len(encoded), size):
+              name = f'part_{i // size + 1:03d}.txt'
+              (chunks_dir / name).write_text(encoded[i:i + size], encoding='ascii')
+              parts.append(name)
+          manifest = {
+              'source_file': str(src),
+              'encoding': 'gzip+base64',
+              'chunk_size': size,
+              'parts': parts,
+              'encoded_length': len(encoded),
+              'raw_size': len(raw),
+              'sha256': hashlib.sha256(raw).hexdigest(),
+          }
+          (chunks_dir / 'manifest.json').write_text(
+              json.dumps(manifest, ensure_ascii=False, indent=2), encoding='utf-8'
+          )
+          PY
+
       - name: Commit extraction output
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add ccb_output/ccb_guangdong_branches_raw.csv ccb_output/summary.json
-          git commit -m "chore: temporary Guangdong CCB extraction output" || exit 0
+          git add ccb_output/
+          git commit -m "chore: package temporary Guangdong CCB extraction output" || exit 0
           git push origin HEAD:main
